@@ -17,7 +17,7 @@ public class PolicyHandler{
 
         if(orderCanceled.isMe()){
             System.out.println("##### listener ApprovalCancel : " + orderCanceled.toJson());
-            Payment payment = new Payment();
+            Payment payment = paymentRepository.findByOrderId(orderCanceled.getId());
             payment.setOrderId(orderCanceled.getId());
             payment.setStatus(orderCanceled.getStatus());
             paymentRepository.save(payment);
