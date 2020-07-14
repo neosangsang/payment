@@ -10,10 +10,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PolicyHandler{
+    @Autowired PaymentRepository paymentRepository;
+
     @StreamListener(KafkaProcessor.INPUT)
-    public void onStringEventListener(@Payload String eventString){
+    public void wheneverOrderCanceled_ApprovalCancel(@Payload OrderCanceled orderCanceled){
 
+        if(orderCanceled.isMe()){
+            System.out.println("##### listener ApprovalCancel : " + orderCanceled.toJson());
+            Payment payment = new Payment();
+            payment.setOrderId(orderCanceled.getId());
+            payment.setStatus(orderCanceled.getStatus());
+            paymentRepository.save(payment);
+        }
     }
-
 
 }
