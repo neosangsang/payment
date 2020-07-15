@@ -15,7 +15,7 @@ public class Payment {
     private String approvalDate;
     private Integer rentalPrice;
     private String status;
-
+/*
     @PrePersist
     public void onPrePersist(){  //결제이력을 저장한 후 적당한 시간 끌기
         try {
@@ -24,7 +24,7 @@ public class Payment {
             e.printStackTrace();
         }
     }
-    
+*/    
     @PostPersist
     public void onPostPersist(){
         Paid paid = new Paid();
